@@ -1,17 +1,19 @@
 services:
   postgres:
-    image: postgres
+    container_name: database_postgresql
+    image: 'postgres'
     restart: always
     ports:
-      - 5432:5432
+      - '5432:5432'
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - './postgres-data:/var/lib/postgresql/data'
 
   pgadmin:
+    container_name: admin_pg_db
     image: dpage/pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
@@ -20,3 +22,4 @@ services:
       - 5050:80
     depends_on:
       - postgres
+      
